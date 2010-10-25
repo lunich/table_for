@@ -3,6 +3,18 @@ require "action_view"
 module ActionView
   module Helpers
     module TableHelper
+      # Creates a table by given collection.
+      #
+      # Example:
+      #
+      # <tt>table_for @users do
+      #   column :name
+      #   column :address, :title => "Addr."
+      #   column :title => "Actions" do |user|
+      #     link_to "Show", user
+      #   end
+      # end</tt>
+      #
       def table_for(records, *args, &proc)
         raise ArgumentError, "Missing block" unless block_given?
         options = args.extract_options!

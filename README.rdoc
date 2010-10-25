@@ -1,6 +1,14 @@
 == table_for
 
-Usage:
+Simple examle:
+
+  <%= table_for @users do %>
+    <% column :name %>
+    <% column :email %>
+    <% column :address %>
+  <% end %>
+
+More complex example:
 
   <%= table_for @users do %>
     <% column :login, :title => "User name" %>

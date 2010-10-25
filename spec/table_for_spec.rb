@@ -7,11 +7,6 @@ describe ActionView::Base do
   end
   
   let(:users) do
-    s = "user"
-    s.stub(:plural => "users", :singular => "user")
-    ActionView::Base.stub(:user_path => "/users/1")
-    RSpec::Mocks::Mock.stub(:model_name => s)
-
     [
       mock({
         :id => 21,
@@ -39,9 +34,6 @@ describe ActionView::Base do
         column :email, :title => "El. address"
         column :title => "Addr" do |user|
           user.address[0,10]
-        end
-        column :title => "Actions" do |user|
-          link_to "Show", user
         end
       end
     end
