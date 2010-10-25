@@ -1,0 +1,15 @@
+== table_for
+
+Usage:
+
+  <%= table_for @users do %>
+    <% column :login, :title => "User name" %>
+    <% column :email %>
+    <% column :title => "Full name" do |user| %>
+      <% [user.first_name, user.last_name].join(" ") %>
+    <% end %>
+    <% column :title => "Actions" do |user| %>
+      <% link_to "Show", user %>
+      <% link_to "Delete", user, :method => :delete %>
+    <% end %>
+  <% end %>
