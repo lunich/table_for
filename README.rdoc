@@ -1,8 +1,14 @@
 == table_for
 
-Simple examle:
+Simplest examle:
 
   <%= table_for @users do %>
+    <% columns :name, :email, :address %>
+  <% end %>
+
+Simple examle:
+
+  <%= table_for @users, :http => { :class => "simple-table", :id => "users" } do %>
     <% column :name %>
     <% column :email %>
     <% column :address %>
