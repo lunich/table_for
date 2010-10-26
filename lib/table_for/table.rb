@@ -1,9 +1,14 @@
+require "core_ex/array"
+
 module TableHelper
   class Table # :nodoc:
     delegate :content_tag, :to => :@template
 
     def initialize(template, records, options = {})
       @template, @records, @options, @columns = template, records, options, []
+      s = @options.delete(:stripes)
+      @stripes = s.nil? ? [] : s.clone
+      @stripes.extend CoreEx::ArrayIterator
     end
 
     def columns(*args)
@@ -57,12 +62,9 @@ module TableHelper
     end
 
     def body
-      stripes = @options.delete(:stripes)
       content_tag :tbody do
         @records.map do |rec|
-          unless stripes.blank?
-            html_class = stripes.next
-          end
+          html_class = @stripes.next unless @stripes.blank?
           content_tag(:tr, :class => (html_class || '')) do
             @columns.map do |col|
               content_tag :td do
