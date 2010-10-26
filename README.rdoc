@@ -27,3 +27,11 @@ More complex example:
       <% link_to "Delete", user, :method => :delete %>
     <% end %>
   <% end %>
+
+Example with colorized rows:
+
+  <%= table_for @users, :stripes => ["s-one" , "s-two", "s-three"] do %>
+    <% column :name %>
+    <% column :email %>
+    <% column :address %>
+  <% end %>

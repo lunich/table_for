@@ -111,8 +111,11 @@ module ActionView
         
         def body
           @view.content_tag :tbody do
-            @records.map do |rec|
-              @view.content_tag :tr do
+            @records.map.with_index do |rec, i|
+              if @options[:stripes] && @options[:stripes].length > 0
+                html_class = @options[:stripes][i % @options[:stripes].length]
+              end
+              @view.content_tag(:tr, :class => (html_class || '')) do
                 @columns.map do |col|
                   @view.content_tag :td do
                     col.content_for(rec)

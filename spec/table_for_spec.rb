@@ -10,8 +10,23 @@ describe ActionView::Base do
     [
       mock({
         :name => "John Smith",
-        :email => "tester@example.com",
+        :email => "smith@matrix.net",
         :address => "100, Spear Street, NY, USA",
+      }),
+      mock({
+        :name => "Thomas Anderson",
+        :email => "neo@matrix.net",
+        :address => "200, Spear Street, NY, USA",
+      }),
+      mock({
+        :name => "Trinity",
+        :email => "trinity@matrix.net",
+        :address => "300, Spear Street, NY, USA",
+      }),
+      mock({
+        :name => "Morpheus",
+        :email => "morpheus@matrix.net",
+        :address => "400, Spear Street, NY, USA",
       })
     ]
   end
@@ -140,6 +155,20 @@ describe ActionView::Base do
             end
           end
         end
+      end
+    end
+
+    describe "with cycling stripes" do
+      before(:each) do
+        @html = view.table_for(users, :stripes => %w{s-one s-two s-three}) do
+          column :name
+        end
+      end
+
+      it "should have valid classes" do
+        @html.should have_selector("tr.s-one", :count => 2)
+        @html.should have_selector("tr.s-two", :count => 1)
+        @html.should have_selector("tr.s-three", :count => 1)
       end
     end
   end
