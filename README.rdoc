@@ -30,7 +30,14 @@ This ruby code will produce following HTML:
 
 === Simple examle
 
-  <%= table_for @users, :html => { :class => "simple-table", :id => "users", :tr => { :class => "simple-row" } } do -%>
+  <%= table_for @users, :html => {
+    :class => "simple-table",
+    :id => "users",
+    :width => "100%",
+    :tr => {
+      :class => "simple-row"
+    }
+  } do -%>
     <% column :name %>
     <% column :email %>
     <% column :address, :title => "Home" %>
@@ -40,7 +47,7 @@ You can put :html hash to the options list. In this case table will be created w
 given html attributes. Also :title value in the :column method will be used as column's
 title. It will produce HTML similar to:
   
-  <table class="simple-table" id="users">
+  <table class="simple-table" id="users" width="100%">
     <thead>
       <tr>
         <td>Name</td>
@@ -70,11 +77,18 @@ title. It will produce HTML similar to:
 
 === Example with colorized rows
 
-  <%= table_for @users, :stripes => ["s-one" , "s-two", "s-three"] do %>
+  <%= table_for @users, :html => { :tr => { :class => "row" } }, :stripes => %w{even odd} do %>
     <% column :name %>
     <% column :email %>
     <% column :address %>
   <% end %>
+  
+Also class given by :stripe option will be merged with options[:html][:tr] so this code will produce following HTML:
+
+  <tr class="row even">...
+  <tr class="row odd">...
+  <tr class="row even">...
+  <tr class="row odd">...
   
 == Known issues
 
