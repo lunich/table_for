@@ -1,14 +1,16 @@
-== table_for
+== Description
+
++table-for+ is a simple gem used to render tables based on the given collection.
 
 Simplest examle:
 
-  <%= table_for @users do %>
+  <%= table_for @users do -%>
     <% columns :name, :email, :address %>
   <% end %>
 
 Simple examle:
 
-  <%= table_for @users, :http => { :class => "simple-table", :id => "users" } do %>
+  <%= table_for @users, :http => { :class => "simple-table", :id => "users" } do -%>
     <% column :name %>
     <% column :email %>
     <% column :address %>
@@ -16,7 +18,7 @@ Simple examle:
 
 More complex example:
 
-  <%= table_for @users do %>
+  <%= table_for @users do -%>
     <% column :login, :title => "User name" %>
     <% column :email %>
     <% column :title => "Full name" do |user| %>
@@ -27,3 +29,11 @@ More complex example:
       <% link_to "Delete", user, :method => :delete %>
     <% end %>
   <% end %>
+  
+== Known issues
+
+Unfortunately it works incorrect if there is no "-" before %> in the code:
+
+  <%= table_for @users do -%>
+  
+We hope it will be fixed soon.

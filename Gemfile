@@ -1,5 +1,6 @@
 gem "rails"
-group :test do
+
+group :development, :test do
   gem "rspec", ">=2.0.0"
   gem "autotest"
   gem "webrat"

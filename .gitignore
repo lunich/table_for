@@ -2,3 +2,5 @@
 .rspec
 Gemfile.lock
 table_for-*.gem
+doc
+doc/**/*

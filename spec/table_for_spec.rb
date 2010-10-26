@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe ActionView::Base do
   # ActionView::Base instance
-  let(:view) do
+  let(:template) do
     ActionView::Base.new
   end
   # users list (stubbed data)
@@ -17,14 +17,14 @@ describe ActionView::Base do
   end
   # check if method available
   it "should respond to :table_for" do
-    view.should respond_to(:table_for)
+    template.should respond_to(:table_for)
   end
   # main method
   describe ":table_for method" do
     # <%= table_for @users %>
     it "should raise if no block given" do
       lambda do
-        view.table_for(users)
+        template.table_for(users)
       end.should raise_error(ArgumentError)
     end
     # <%= table_for @users do %>
@@ -32,7 +32,7 @@ describe ActionView::Base do
     # <% end %>
     describe "with simple column" do
       before(:each) do
-        @html = view.table_for(users) do
+        @html = template.table_for(users) do
           column :name
         end
       end
@@ -56,7 +56,7 @@ describe ActionView::Base do
     # <% end %>
     describe "with columns" do
       before(:each) do
-        @html = view.table_for(users) do
+        @html = template.table_for(users) do
           columns :name, :email, :address
         end
       end
@@ -78,7 +78,7 @@ describe ActionView::Base do
     # <% end %>
     describe "with given :html options" do
       before(:each) do
-        @html = view.table_for(users, :html => { :id => "users", :class => "simple-table" }) do
+        @html = template.table_for(users, :html => { :id => "users", :class => "simple-table" }) do
           column :name
         end
       end
@@ -91,7 +91,7 @@ describe ActionView::Base do
     # <% end %>
     describe "with titled column" do
       before(:each) do
-        @html = view.table_for(users) do
+        @html = template.table_for(users) do
           column :email, :title => "Email address"
         end
       end
@@ -119,7 +119,7 @@ describe ActionView::Base do
     # <% end %>
     describe "with callback column" do
       before(:each) do
-        @html = view.table_for(users) do
+        @html = template.table_for(users) do
           column :title => "Addr" do |user|
             content_tag :div do
               user.address[0,10]
