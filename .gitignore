@@ -1,4 +1,7 @@
 .autotest
 .rspec
+.bundle
 Gemfile.lock
 table_for-*.gem
+doc
+doc/**/*
