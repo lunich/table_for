@@ -1,11 +1,11 @@
 module TableHelper
   class Table # :nodoc:
     delegate :content_tag, :to => :@template
-    
+
     def initialize(template, records, options = {})
       @template, @records, @options, @columns = template, records, options, []
     end
-  
+
     def columns(*args)
       unless args.blank?
         args.each do |arg|
@@ -15,7 +15,7 @@ module TableHelper
         raise ArgumentError, "At least one attribute name should be given"
       end
     end
-  
+
     def column(*args, &block)
       col_options = args.extract_options!
       unless args.blank?
@@ -35,11 +35,15 @@ module TableHelper
         head + body
       end
     end
+
   protected
+
     def method_missing(method, *args, &proc)
       @template.send(method, *args, &proc)
     end
+
   private
+
     def head
       content_tag :thead do
         content_tag :tr do
@@ -51,12 +55,12 @@ module TableHelper
         end
       end
     end
-  
+
     def body
       content_tag :tbody do
-        @records.map.with_index do |rec, i|
+        @records.map do |rec|
           if @options[:stripes] && @options[:stripes].length > 0
-            html_class = @options[:stripes][i % @options[:stripes].length]
+            html_class = @options[:stripes][@records.index(rec) % @options[:stripes].length]
           end
           content_tag(:tr, :class => (html_class || '')) do
             @columns.map do |col|
