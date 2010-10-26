@@ -32,9 +32,7 @@ module TableHelper
     options = args.extract_options!
     raise ArgumentError, "Records should be array" unless Array === records
     t = Table.new(self, records, options)
-    t.capture do
-      t.instance_eval(&proc)
-    end
+    t.instance_eval(&proc)
     t.draw
   end
 end

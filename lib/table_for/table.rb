@@ -23,6 +23,7 @@ module TableHelper
       else
         raise ArgumentError, "At least one attribute name should be given"
       end
+      ""
     end
 
     def column(*args, &block)
@@ -37,6 +38,7 @@ module TableHelper
           raise ArgumentError, "Attribute name or block should be given"
         end
       end
+      ""
     end
 
     def draw
