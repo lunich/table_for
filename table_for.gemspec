@@ -17,10 +17,7 @@ spec = Gem::Specification.new do |s|
   s.files             = Dir.glob("{lib,spec}/**/*") +
     ["README.rdoc", "Rakefile", "Changelog", "Gemfile", "init.rb"]
   
-  s.test_files        = [
-    "spec/table_for_spec.rb",
-    "spec/table_for_spec.rb"
-  ]
+  s.test_files        = Dir.glob("spec/**/*")
   s.require_path      = "lib"
   s.extra_rdoc_files  = ["README.rdoc"]
   s.rdoc_options = ["--main", "README.rdoc"]

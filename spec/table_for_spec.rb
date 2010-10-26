@@ -158,6 +158,9 @@ describe ActionView::Base do
       end
     end
 
+    # <%= table_for @users, :stripes => ["odd", "even"] do %>
+    #   <% column :name %>
+    # <% end %>
     describe "with cycling stripes" do
       before(:each) do
         @html = template.table_for(users, :stripes => %w{s-one s-two s-three}) do
