@@ -1,22 +1,61 @@
 == Description
 
-+table-for+ is a simple gem used to render tables based on the given collection.
+*table-for* is a simple gem used to render tables based on the given collection.
 
-Simplest examle:
+=== Simplest examle
 
   <%= table_for @users do -%>
     <% columns :name, :email, :address %>
   <% end %>
 
-Simple examle:
+In this case you just put fields list to the :columns method.
+This ruby code will produce following HTML:
 
-  <%= table_for @users, :http => { :class => "simple-table", :id => "users" } do -%>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Address</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>John Smith</td>
+        <td>john.smith@example.com</td>
+        <td>100 Spear St., NY, USA</td>
+      </tr>
+    </tbody>
+  </table>
+
+=== Simple examle
+
+  <%= table_for @users, :html => { :class => "simple-table", :id => "users", :tr => { :class => "simple-row" } } do -%>
     <% column :name %>
     <% column :email %>
-    <% column :address %>
+    <% column :address, :title => "Home" %>
   <% end %>
+  
+You can put :html hash to the options list. In this case table will be created with
+given html attributes. Also :title value in the :column method will be used as column's
+title. It will produce HTML similar to:
+  
+  <table class="simple-table" id="users">
+    <thead>
+      <tr>
+        <td>Name</td>
+        <td>Email</td>
+        <td>Home</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="simple-row"
+        ...
+      </tr>
+    </tbody>
+  </table>
 
-More complex example:
+=== More complex example
 
   <%= table_for @users do -%>
     <% column :login, :title => "User name" %>
@@ -25,12 +64,11 @@ More complex example:
       <% [user.first_name, user.last_name].join(" ") %>
     <% end %>
     <% column :title => "Actions" do |user| %>
-      <% link_to "Show", user %>
-      <% link_to "Delete", user, :method => :delete %>
+      <% [link_to("Show", user), link_to("Delete", user, :method => :delete)].join(" | ") %>
     <% end %>
   <% end %>
 
-Example with colorized rows:
+=== Example with colorized rows
 
   <%= table_for @users, :stripes => ["s-one" , "s-two", "s-three"] do %>
     <% column :name %>
@@ -40,7 +78,7 @@ Example with colorized rows:
   
 == Known issues
 
-Unfortunately it works incorrect if there is no "-" before %> in the code:
+Unfortunately it works incorrect if there is no "-" before %> in this code:
 
   <%= table_for @users do -%>
   

@@ -5,9 +5,13 @@ module TableHelper
     delegate :content_tag, :to => :@template
 
     def initialize(template, records, options = {})
-      @template, @records, @options, @columns = template, records, options, []
-      s = @options.delete(:stripes)
-      @stripes = s.nil? ? [] : s.clone
+      @template, @records, @columns = template, records, []
+      # table's html options
+      @table_html_options = options.delete(:html) || {}
+      # trs' html options
+      @tr_html_options = @table_html_options.delete(:tr) || {}
+      # stripes (cycling)
+      @stripes = options.delete(:stripes) || []
       @stripes.extend CoreEx::ArrayIterator
     end
 
@@ -36,7 +40,7 @@ module TableHelper
     end
 
     def draw
-      content_tag :table, @options.delete(:html) do
+      content_tag :table, @table_html_options do
         head + body
       end
     end
@@ -64,8 +68,7 @@ module TableHelper
     def body
       content_tag :tbody do
         @records.map do |rec|
-          html_class = @stripes.next unless @stripes.blank?
-          content_tag(:tr, :class => (html_class || '')) do
+          content_tag(:tr, tr_options) do
             @columns.map do |col|
               content_tag :td do
                 col.content_for(rec)
@@ -74,6 +77,19 @@ module TableHelper
           end
         end.join
       end
+    end
+    
+    def tr_options
+      res = @tr_html_options.nil? ? {} : @tr_html_options.clone
+      html_class = @stripes.next
+      unless html_class.nil?
+        if res.has_key?(:class)
+          res[:class] += " " + html_class
+        else
+          res.merge!({ :class => html_class })
+        end
+      end
+      res
     end
 
   end

@@ -34,6 +34,7 @@ describe ActionView::Base do
   it "should respond to :table_for" do
     template.should respond_to(:table_for)
   end
+  
   # main method
   describe ":table_for method" do
     # <%= table_for @users %>
@@ -172,6 +173,22 @@ describe ActionView::Base do
         @html.should have_selector("tr.s-one", :count => 2)
         @html.should have_selector("tr.s-two", :count => 1)
         @html.should have_selector("tr.s-three", :count => 1)
+      end
+    end
+    
+    # <%= table_for @users, :stripes => ["odd", "even"], :html => { :tr => { :class => "table-row" } } do %>
+    #   <% column :name %>
+    # <% end %>
+    describe "with tr html" do
+      before(:each) do
+        @html = template.table_for(users, :stripes => ["odd", "even"], :html => { :tr => { :class => "table-row" } }) do
+          column :name
+        end
+      end
+
+      it "should have valid classes" do
+        @html.should have_selector("tr.odd.table-row", :count => 2)
+        @html.should have_selector("tr.even.table-row", :count => 2)
       end
     end
   end
