@@ -57,10 +57,11 @@ module TableHelper
     end
 
     def body
+      stripes = @options.delete(:stripes)
       content_tag :tbody do
         @records.map do |rec|
-          if @options[:stripes] && @options[:stripes].length > 0
-            html_class = @options[:stripes][@records.index(rec) % @options[:stripes].length]
+          unless stripes.blank?
+            html_class = stripes.next
           end
           content_tag(:tr, :class => (html_class || '')) do
             @columns.map do |col|
