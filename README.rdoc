@@ -38,7 +38,7 @@ This ruby code will produce following HTML:
       :class => "simple-row"
     }
   } do -%>
-    <% column :name, :html => { :width => "25%" } %>
+    <% column :name, :html => { :th => { :width => "25%" }, :td => { :class => "user-name" }} %>
     <% column :email %>
     <% column :address, :title => "Home" %>
   <% end %>
@@ -57,7 +57,7 @@ will be used as column's title. It will produce HTML similar to:
     </thead>
     <tbody>
       <tr class="simple-row">
-        <td width="25%">...</td>
+        <td class="user-name">...</td>
         <td>...</td>
         <td>...</td>
       </tr>

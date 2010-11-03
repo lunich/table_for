@@ -77,17 +77,17 @@ describe ActionView::Base do
     describe "with column :html options" do
       before(:each) do
         @html = template.table_for(users) do
-          column :id, :html => { :class => "user-id", :width => "50%" }
+          column :id, :html => { :td => { :class => "user-id" }, :th => { :width => "50%" }}
         end
       end
       it "should render valid HTML" do
         @html.should have_selector("table") do |table|
           table.should have_selector("thead/tr") do |tr|
-            tr.should have_selector("th.user-id[@width='50%']")
+            tr.should have_selector("th[@width='50%']")
           end
           table.should have_selector("tbody/tr") do |tr|
             users.each do |user|
-              tr.should have_selector("td.user-id[@width='50%']")
+              tr.should have_selector("td.user-id")
             end
           end
         end
