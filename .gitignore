@@ -2,6 +2,6 @@
 .rspec
 .bundle
 Gemfile.lock
-table_for-*.gem
+table_for_collection-*.gem
 doc
 doc/**/*

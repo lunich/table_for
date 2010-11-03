@@ -2,7 +2,7 @@
 lib = File.expand_path('../lib/', __FILE__)
 $:.unshift lib unless $:.include?(lib)
 
-require 'table_for/version'
+require 'table_for_collection/version'
 
 spec = Gem::Specification.new do |s|
   s.authors           = ["Dima Lunich", "Andrey Savchenko"]
