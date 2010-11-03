@@ -16,12 +16,12 @@ spec = Gem::Specification.new do |s|
   s.description       = "This gem builds HTML-table using given array"
   s.files             = Dir.glob("{lib,spec}/**/*") +
     ["README.rdoc", "Rakefile", "Changelog", "Gemfile", "init.rb"]
-  
+
   s.test_files        = Dir.glob("spec/**/*")
   s.require_path      = "lib"
   s.extra_rdoc_files  = ["README.rdoc"]
   s.rdoc_options = ["--main", "README.rdoc"]
-  
+
   s.add_development_dependency "rspec"
   s.add_dependency "rails"
 end

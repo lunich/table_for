@@ -4,8 +4,9 @@ module TableHelper
       super
       @title = @options.delete(:title) || @attr.to_s.humanize || "&nbsp;"
     end
+
     def content_for(record)
-      record.send(@attr)
+      record.send(@attr).to_s
     end
   end
 end
