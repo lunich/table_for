@@ -30,7 +30,7 @@ module TableHelper
   def table_for(records, *args, &proc)
     raise ArgumentError, "Missing block" unless block_given?
     options = args.extract_options!
-    raise ArgumentError, "Records should be array" unless Array === records
+    raise ArgumentError, "Records should be array" unless records.is_a? Enumerable
     t = Table.new(self, records, options)
     t.instance_eval(&proc)
     t.draw
