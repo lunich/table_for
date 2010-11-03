@@ -9,21 +9,25 @@ describe ActionView::Base do
   let(:users) do
     [
       mock({
+        :id => 1209,
         :name => "John Smith",
         :email => "smith@matrix.net",
         :address => "100, Spear Street, NY, USA",
       }),
       mock({
+        :id => 2123,
         :name => "Thomas Anderson",
         :email => "neo@matrix.net",
         :address => "200, Spear Street, NY, USA",
       }),
       mock({
+        :id => 3323,
         :name => "Trinity",
         :email => "trinity@matrix.net",
         :address => "300, Spear Street, NY, USA",
       }),
       mock({
+        :id => 4912,
         :name => "Morpheus",
         :email => "morpheus@matrix.net",
         :address => "400, Spear Street, NY, USA",
@@ -73,13 +77,13 @@ describe ActionView::Base do
     describe "with columns" do
       before(:each) do
         @html = template.table_for(users) do
-          columns :name, :email, :address
+          columns :id, :name, :email, :address
         end
       end
       it "should render valid HTML" do
         @html.should have_selector("table") do |table|
           table.should have_selector("thead/tr") do |tr|
-            ["Name", "Email", "Address"].each do |field|
+            ["Id", "Name", "Email", "Address"].each do |field|
               tr.should have_selector("th") do |th|
                 th.should contain(field)
               end
@@ -136,6 +140,7 @@ describe ActionView::Base do
     describe "with callback column" do
       before(:each) do
         @html = template.table_for(users) do
+          column :id
           column :title => "Addr" do |user|
             content_tag :div do
               user.address[0,10]
@@ -150,6 +155,9 @@ describe ActionView::Base do
           end
           table.should have_selector("tbody/tr") do |tr|
             users.each do |user|
+              tr.should have_selector("td") do |td|
+                td.should contain(user.id.to_s)
+              end
               tr.should have_selector("td/div") do |td|
                 td.should contain(user.address[0,10])
               end

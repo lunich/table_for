@@ -4,7 +4,7 @@
 
 === Simplest examle
 
-  <%= table_for @users do -%>
+  <%= table_for_collection @users do -%>
     <% columns :name, :email, :address %>
   <% end %>
 
@@ -30,7 +30,7 @@ This ruby code will produce following HTML:
 
 === Simple examle
 
-  <%= table_for @users, :html => {
+  <%= table_for_collection @users, :html => {
     :class => "simple-table",
     :id => "users",
     :width => "100%",
@@ -64,7 +64,7 @@ title. It will produce HTML similar to:
 
 === More complex example
 
-  <%= table_for @users do -%>
+  <%= table_for_collection @users do -%>
     <% column :login, :title => "User name" %>
     <% column :email %>
     <% column :title => "Full name" do |user| %>
@@ -77,7 +77,7 @@ title. It will produce HTML similar to:
 
 === Example with colorized rows
 
-  <%= table_for @users, :html => { :tr => { :class => "row" } }, :stripes => %w{even odd} do %>
+  <%= table_for_collection @users, :html => { :tr => { :class => "row" } }, :stripes => %w{even odd} do %>
     <% column :name %>
     <% column :email %>
     <% column :address %>
@@ -94,6 +94,6 @@ Also class given by :stripe option will be merged with options[:html][:tr] so th
 
 Unfortunately it works incorrect if there is no "-" before %> in this code:
 
-  <%= table_for @users do -%>
+  <%= table_for_collection @users do -%>
   
 We hope it will be fixed soon.

@@ -23,7 +23,6 @@ module TableHelper
       else
         raise ArgumentError, "At least one attribute name should be given"
       end
-      ""
     end
 
     def column(*args, &block)
@@ -38,7 +37,6 @@ module TableHelper
           raise ArgumentError, "Attribute name or block should be given"
         end
       end
-      ""
     end
 
     def draw
@@ -73,7 +71,7 @@ module TableHelper
           content_tag(:tr, tr_options) do
             @columns.map do |col|
               content_tag :td do
-                col.content_for(rec)
+                col.content_for(rec).to_s
               end
             end.join
           end
