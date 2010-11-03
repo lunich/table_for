@@ -1,4 +1,4 @@
 module TableHelper
   GEM_NAME = "table_for_collection"
-  VERSION  = "1.0"
+  VERSION  = "1.0.1"
 end

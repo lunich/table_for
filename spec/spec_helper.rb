@@ -1,4 +1,4 @@
-require "table_for"
+require "table_for_collection"
 require "webrat"
 
 RSpec.configure do |config|

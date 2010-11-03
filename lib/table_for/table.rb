@@ -70,7 +70,7 @@ module TableHelper
         @records.map do |rec|
           content_tag(:tr, tr_options) do
             @columns.map do |col|
-              content_tag :td do
+              content_tag :td, col.html do
                 col.content_for(rec).to_s
               end
             end.join

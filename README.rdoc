@@ -38,26 +38,28 @@ This ruby code will produce following HTML:
       :class => "simple-row"
     }
   } do -%>
-    <% column :name %>
+    <% column :name, :html => { :width => "25%" } %>
     <% column :email %>
     <% column :address, :title => "Home" %>
   <% end %>
   
-You can put :html hash to the options list. In this case table will be created with
-given html attributes. Also :title value in the :column method will be used as column's
-title. It will produce HTML similar to:
+You can put :html hash to the options list (inside the :column method too). In this case
+table will be created with given html attributes. Also :title value in the :column method
+will be used as column's title. It will produce HTML similar to:
   
   <table class="simple-table" id="users" width="100%">
     <thead>
       <tr>
-        <td>Name</td>
-        <td>Email</td>
-        <td>Home</td>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Home</th>
       </tr>
     </thead>
     <tbody>
-      <tr class="simple-row"
-        ...
+      <tr class="simple-row">
+        <td width="25%">...</td>
+        <td>...</td>
+        <td>...</td>
       </tr>
     </tbody>
   </table>
