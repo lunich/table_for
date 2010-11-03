@@ -1,6 +1,6 @@
 == Description
 
-*table-for* is a simple gem used to render tables based on the given collection.
+table_for_collection is a simple gem used to render tables based on the given collection.
 
 === Simplest examle
 
