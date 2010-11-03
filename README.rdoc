@@ -50,7 +50,7 @@ will be used as column's title. It will produce HTML similar to:
   <table class="simple-table" id="users" width="100%">
     <thead>
       <tr>
-        <th>Name</th>
+        <th width="25%">Name</th>
         <th>Email</th>
         <th>Home</th>
       </tr>

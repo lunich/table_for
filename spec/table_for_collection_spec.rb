@@ -82,6 +82,9 @@ describe ActionView::Base do
       end
       it "should render valid HTML" do
         @html.should have_selector("table") do |table|
+          table.should have_selector("thead/tr") do |tr|
+            tr.should have_selector("th.user-id[@width='50%']")
+          end
           table.should have_selector("tbody/tr") do |tr|
             users.each do |user|
               tr.should have_selector("td.user-id[@width='50%']")

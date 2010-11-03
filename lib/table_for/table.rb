@@ -57,7 +57,7 @@ module TableHelper
       content_tag :thead do
         content_tag :tr do
           @columns.map do |col|
-            content_tag :th do
+            content_tag :th, col.html do
               col.title
             end
           end.join
