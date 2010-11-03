@@ -1,1 +1,1 @@
-require 'table_for_collection'
+require 'table_for'
