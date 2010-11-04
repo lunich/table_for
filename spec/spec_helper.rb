@@ -9,7 +9,7 @@ end
 shared_examples_for "Column class instance" do
   # Check are methods present
   describe "should have method", :shared => true do
-    [:title, :html, :content_for].each do |method|
+    [:title, :html, :content_for, :content_tag].each do |method|
       it ":#{method}" do
         build_column(klass, :id).should respond_to(method)
       end
@@ -22,6 +22,21 @@ shared_examples_for "Column class instance" do
     end
     it "should success if :html option is given" do
       build_column(klass, :id, :html => { :class => "some-class" }).html.should eq(:class => "some-class")
+    end
+  end
+  # :draw_title
+  describe ":draw_title method should render" do
+    it "valid th" do
+      col = build_column(klass, :id, :title => "Test", :html => {
+        :th => {
+          :class => "some-class",
+          :width => "50%",
+        }
+      })
+      html = col.draw_title
+      html.should have_selector("th.some-class[@width='50%']") do |th|
+        th.should contain(col.title)
+      end
     end
   end
 end

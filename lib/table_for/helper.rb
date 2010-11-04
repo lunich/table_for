@@ -37,6 +37,6 @@ module TableHelper
   end
 end
 
-ActionView::Base.class_eval {
+ActionView::Base.class_eval do
   include TableHelper
-}
+end

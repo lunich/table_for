@@ -3,7 +3,7 @@ require "core_ex/array"
 module TableHelper
   class Table # :nodoc:
     delegate :content_tag, :to => :@template
-
+    
     def initialize(template, records, options = {})
       @template, @records, @columns = template, records, []
       # table's html options
@@ -16,27 +16,31 @@ module TableHelper
     end
 
     def columns(*args)
+      res = []
       unless args.blank?
         args.each do |arg|
-          self.column(arg)
+          res << self.column(arg)
         end
       else
         raise ArgumentError, "At least one attribute name should be given"
       end
+      res
     end
 
     def column(*args, &block)
       col_options = args.extract_options!
+      res = nil
       unless args.blank?
         attr = args.shift
-        @columns << SimpleColumn.new(@template, attr, col_options)
+        @columns << (res = SimpleColumn.new(@template, attr, col_options))
       else
         if block_given?
-          @columns << CallbackColumn.new(@template, block, col_options)
+          @columns << (res = CallbackColumn.new(@template, block, col_options))
         else
           raise ArgumentError, "Attribute name or block should be given"
         end
       end
+      res
     end
 
     def draw
@@ -56,11 +60,7 @@ module TableHelper
     def head
       content_tag :thead do
         content_tag :tr do
-          @columns.map do |col|
-            content_tag :th, col.html[:th] do
-              col.title
-            end
-          end.join
+          @columns.map { |col| col.draw_title }.join
         end
       end
     end

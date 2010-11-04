@@ -32,12 +32,14 @@ describe TableHelper::Table do
         end
       end
     end
-    # column method
+    # :column method
     describe ":column method" do
       describe "with argument only" do
         it "should build simple column" do
-          table.column(:id)
-          table.instance_variable_get(:@columns).last.should be_instance_of(TableHelper::SimpleColumn)
+          col = table.column(:id)
+          last = table.instance_variable_get(:@columns).last
+          last.should be_instance_of(TableHelper::SimpleColumn)
+          last.should eq(col)
         end
         it "should build column" do
           lambda do
@@ -47,8 +49,10 @@ describe TableHelper::Table do
       end
       describe "with argument and options" do
         it "should build simple column" do
-          table.column(:id, :title => "ID")
-          table.instance_variable_get(:@columns).last.should be_instance_of(TableHelper::SimpleColumn)
+          col = table.column(:id, :title => "ID")
+          last = table.instance_variable_get(:@columns).last
+          last.should be_instance_of(TableHelper::SimpleColumn)
+          last.should eq(col)
         end
         it "should build column" do
           lambda do
@@ -58,8 +62,10 @@ describe TableHelper::Table do
       end
       describe "with block only" do
         it "should build callback column" do
-          table.column { |r| "aaa-#{r}" }
-          table.instance_variable_get(:@columns).last.should be_instance_of(TableHelper::CallbackColumn)
+          col = table.column { |r| "aaa-#{r}" }
+          last = table.instance_variable_get(:@columns).last
+          last.should be_instance_of(TableHelper::CallbackColumn)
+          last.should eq(col)
         end
         it "should build column" do
           lambda do
@@ -69,8 +75,10 @@ describe TableHelper::Table do
       end
       describe "with block and options" do
         it "should build callback column" do
-          table.column(:title => "AAA") { |r| "aaa-#{r}" }
-          table.instance_variable_get(:@columns).last.should be_instance_of(TableHelper::CallbackColumn)
+          col = table.column(:title => "AAA") { |r| "aaa-#{r}" }
+          last = table.instance_variable_get(:@columns).last
+          last.should be_instance_of(TableHelper::CallbackColumn)
+          last.should eq(col)
         end
         it "should build column" do
           lambda do
@@ -93,5 +101,56 @@ describe TableHelper::Table do
         end
       end
     end
+    # :columns method
+    describe ":columns method" do
+      it "should create columns by attributes" do
+        attrs = [:id, :name, :email]
+        res = nil
+        lambda do
+          res = table.columns *attrs
+        end.should change(table.instance_variable_get(:@columns), :size).by(attrs.size)
+        res.should be_instance_of(Array)
+        res.size.should eq(attrs.size)
+      end
+      it "should raise if no arguments given" do
+        lambda do
+          table.columns
+        end.should raise_error(ArgumentError, "At least one attribute name should be given")
+      end
+    end
+    # :draw method
+    describe ":draw method" do
+      describe "for simple table" do
+        before(:each) do
+          @attr = :id
+          table = build_table
+          @col = table.column(@attr)
+          @html = table.draw
+        end
+        describe "should render table" do
+          it { @html.should have_selector("table") }
+          describe "thead" do
+            it { @html.should have_selector("table/thead") }
+            describe "tr" do
+              it { @html.should have_selector("table/thead/tr") }
+              describe "th" do
+                it "should contain valid title" do
+                  @html.should have_selector("table/thead/tr/th") do |th|
+                    th.should contain(@col.title)
+                  end
+                end
+              end
+            end
+          end
+          describe "tbody" do
+            it { @html.should have_selector("table/tbody") }
+          end
+        end
+      end
+    end
+  end
+protected
+  def build_table(options = {})
+    TableHelper::Table.new(template, users, options)
   end
 end
