@@ -2,10 +2,11 @@ module TableHelper
   class CallbackColumn < Column # :nodoc:
     def initialize(template, obj, ops)
       super
-      @title = @options.delete(:title) || "&nbsp;"
+      @callback = @options.delete(:callback)
     end
+
     def content_for(record)
-      @attr.call(record)
+      @attr ? @callback.call(record.send(@attr).to_s) : @callback.call(record)
     end
   end
 end

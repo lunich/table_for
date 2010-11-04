@@ -189,6 +189,31 @@ describe ActionView::Base do
       end
     end
 
+    describe "with named callback column" do
+      before(:each) do
+        @html = template.table_for(users) do
+          column :email do |email|
+            mail_to email
+          end
+        end
+      end
+
+      it "should render valid HTML" do
+        @html.should have_selector("table") do |table|
+          table.should have_selector("thead/tr/th") do |th|
+            th.should contain("Email")
+          end
+          table.should have_selector("tbody/tr") do |tr|
+            users.each do |user|
+              tr.should have_selector("td") do |td|
+                td.should have_selector("a[@href='mailto:#{user.email}']")
+              end
+            end
+          end
+        end
+      end
+    end
+
     # <%= table_for @users, :stripes => ["odd", "even"] do %>
     #   <% column :name %>
     # <% end %>

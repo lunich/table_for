@@ -68,10 +68,13 @@ will be used as column's title. It will produce HTML similar to:
 
   <%= table_for @users do -%>
     <% column :login, :title => "User name" %>
-    <% column :email %>
+    <% column :email do |email| %>
+      <% mail_to email %>
+    <% end %>
     <% column :title => "Full name" do |user| %>
       <% [user.first_name, user.last_name].join(" ") %>
     <% end %>
+    <% column :company %>
     <% column :title => "Actions" do |user| %>
       <% [link_to("Show", user), link_to("Delete", user, :method => :delete)].join(" | ") %>
     <% end %>

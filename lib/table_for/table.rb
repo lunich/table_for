@@ -30,15 +30,16 @@ module TableHelper
     def column(*args, &block)
       col_options = args.extract_options!
       res = nil
-      unless args.blank?
-        attr = args.shift
+
+      attr = args.shift or nil
+
+      if block_given?
+        col_options[:callback] = block
+        @columns << (res = CallbackColumn.new(@template, attr, col_options))
+      elsif attr
         @columns << (res = SimpleColumn.new(@template, attr, col_options))
       else
-        if block_given?
-          @columns << (res = CallbackColumn.new(@template, block, col_options))
-        else
-          raise ArgumentError, "Attribute name or block should be given"
-        end
+        raise ArgumentError, "Attribute name or block should be given"
       end
       res
     end

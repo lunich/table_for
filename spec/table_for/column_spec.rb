@@ -10,7 +10,7 @@ describe TableHelper::Column do
     it_should_behave_like "Column class instance"
     # :title
     it ":title method should success" do
-      build_column(klass, :id, :title => "Test").title.should eq("")
+      build_column(klass, :id, :title => "Test").title.should eq("Test")
     end
     # :content_for
     it ":content_for method should raise error" do
