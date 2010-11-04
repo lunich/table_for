@@ -32,5 +32,66 @@ describe TableHelper::Table do
         end
       end
     end
+    # column method
+    describe ":column method" do
+      describe "with argument only" do
+        it "should build simple column" do
+          table.column(:id)
+          table.instance_variable_get(:@columns).last.should be_instance_of(TableHelper::SimpleColumn)
+        end
+        it "should build column" do
+          lambda do
+            table.column(:id)
+          end.should change(table.instance_variable_get(:@columns), :size).by(1)
+        end
+      end
+      describe "with argument and options" do
+        it "should build simple column" do
+          table.column(:id, :title => "ID")
+          table.instance_variable_get(:@columns).last.should be_instance_of(TableHelper::SimpleColumn)
+        end
+        it "should build column" do
+          lambda do
+            table.column(:id, :title => "ID")
+          end.should change(table.instance_variable_get(:@columns), :size).by(1)
+        end
+      end
+      describe "with block only" do
+        it "should build callback column" do
+          table.column { |r| "aaa-#{r}" }
+          table.instance_variable_get(:@columns).last.should be_instance_of(TableHelper::CallbackColumn)
+        end
+        it "should build column" do
+          lambda do
+            table.column { |r| "aaa-#{r}" }
+          end.should change(table.instance_variable_get(:@columns), :size).by(1)
+        end
+      end
+      describe "with block and options" do
+        it "should build callback column" do
+          table.column(:title => "AAA") { |r| "aaa-#{r}" }
+          table.instance_variable_get(:@columns).last.should be_instance_of(TableHelper::CallbackColumn)
+        end
+        it "should build column" do
+          lambda do
+            table.column(:title => "AAA") { |r| "aaa-#{r}" }
+          end.should change(table.instance_variable_get(:@columns), :size).by(1)
+        end
+      end
+      describe "without block and argument" do
+        it "should raise error" do
+          lambda do
+            table.column
+          end.should raise_error(ArgumentError, "Attribute name or block should be given")
+        end
+      end
+      describe "with options only" do
+        it "should raise error" do
+          lambda do
+            table.column(:title => "Title")
+          end.should raise_error(ArgumentError, "Attribute name or block should be given")
+        end
+      end
+    end
   end
 end
