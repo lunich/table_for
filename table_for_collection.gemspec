@@ -7,7 +7,7 @@ require 'table_for/version'
 spec = Gem::Specification.new do |s|
   s.authors           = ["Dima Lunich", "Andrey Savchenko", "Dmitry Shaposhnik"]
   s.email             = ["dima.lunich@gmail.com", "andrey@aejis.eu", "dmitry@shaposhnik.name"]
-  s.date              = "2010-10-24"
+  s.date              = "2010-11-16"
   s.homepage          = "http://github.com/lunich/table_for"
   s.rubyforge_project = ""
   s.name              = TableHelper::GEM_NAME
@@ -20,8 +20,8 @@ spec = Gem::Specification.new do |s|
   s.test_files        = Dir.glob("spec/**/*")
   s.require_path      = "lib"
   s.extra_rdoc_files  = ["README.rdoc"]
-  s.rdoc_options = ["--main", "README.rdoc"]
+  s.rdoc_options      = ["--main", "README.rdoc"]
 
-  s.add_development_dependency "rspec"
-  s.add_dependency "rails"
+  s.add_development_dependency "rspec", ">= 2.0.0"
+  s.add_dependency "actionpack"
 end

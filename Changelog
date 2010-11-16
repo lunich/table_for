@@ -1,7 +1,13 @@
-== v.0.2
+== v.1.0.3
+
+Callback column for given attribute
+Compatibility with rails 3.0.2
+Change dependency from rails to actionpack
+
+== v.1.0.2
 
 Packaged as a gem.
 
-== v.0.1
+== v.1.0.1
 
 Initial version: table_for method added.

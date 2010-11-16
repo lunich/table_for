@@ -61,7 +61,7 @@ module TableHelper
     def head
       content_tag :thead do
         content_tag :tr do
-          @columns.map { |col| col.draw_title }.join
+          @columns.map { |col| col.draw_title }.join.html_safe
         end
       end
     end
@@ -74,9 +74,9 @@ module TableHelper
               content_tag :td, col.html[:td] do
                 col.content_for(rec).to_s
               end
-            end.join
+            end.join.html_safe
           end
-        end.join
+        end.join.html_safe
       end
     end
     
