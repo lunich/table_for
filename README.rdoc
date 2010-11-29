@@ -2,6 +2,12 @@
 
 table_for_collection is a simple gem used to render tables based on the given collection.
 
+=== Install
+
+Just add to your Gemfile
+
+  gem 'table_for_collection'
+
 === Simplest examle
 
   <%= table_for @users do -%>
