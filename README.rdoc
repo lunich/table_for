@@ -84,6 +84,7 @@ will be used as column's title. It will produce HTML similar to:
     <% column :title => "Actions" do |user| %>
       <% [link_to("Show", user), link_to("Delete", user, :method => :delete)].join(" | ") %>
     <% end %>
+    <% column :created_at, :time_format => "%Y-%m-%d" %>
   <% end %>
 
 === Example with colorized rows

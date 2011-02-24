@@ -1,3 +1,7 @@
+== master
+
+Add option time_format for simple column
+
 == v.1.0.3
 
 Callback column for given attribute
