@@ -45,19 +45,19 @@ This ruby code will produce following HTML:
     }
   } do -%>
     <% column :name, :html => { :th => { :width => "25%" }, :td => { :class => "user-name" }} %>
-    <% column :email %>
+    <% column :email, :width => "20%" %>
     <% column :address, :title => "Home" %>
   <% end %>
   
 You can put :html hash to the options list (inside the :column method too). In this case
-table will be created with given html attributes. Also :title value in the :column method
-will be used as column's title. It will produce HTML similar to:
+table will be created with given html attributes. For column width you can use shortcut :width, remember that :width shortcut has higher priority.
+Also :title value in the :column method will be used as column's title. It will produce HTML similar to:
   
   <table class="simple-table" id="users" width="100%">
     <thead>
       <tr>
         <th width="25%">Name</th>
-        <th>Email</th>
+        <th width="20%">Email</th>
         <th>Home</th>
       </tr>
     </thead>

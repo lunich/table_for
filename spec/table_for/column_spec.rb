@@ -12,6 +12,11 @@ describe TableHelper::Column do
     it ":title method should success" do
       build_column(klass, :id, :title => "Test").title.should eq("Test")
     end
+
+    it ":width method should success" do
+      build_column(klass, :id, :width => '20%').draw_title.should eq('<th width="20%">Id</th>')
+    end
+
     # :content_for
     it ":content_for method should raise error" do
       lambda do

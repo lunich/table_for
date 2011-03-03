@@ -3,10 +3,11 @@ module TableHelper
     attr_reader :title, :html
     delegate :content_tag, :to => :@template
 
-    def initialize(template, obj, ops)
+    def initialize(template, obj, ops={})
       @template, @attr, @options = template, obj, ops
       @title = @options.delete(:title) || @attr.to_s.humanize.presence || "&nbsp;"
       @html  = @options.delete(:html)  || {}
+      @html.merge!({:th => { :width => @options.delete(:width) }}) if @options[:width]
     end
 
     def content_for
