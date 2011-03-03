@@ -35,9 +35,9 @@ module TableHelper
 
       if block_given?
         col_options[:callback] = block
-        @columns << (res = CallbackColumn.new(@template, attr, col_options))
+        @columns << (res = CallbackColumn.new(@template, @records, attr, col_options))
       elsif attr
-        @columns << (res = SimpleColumn.new(@template, attr, col_options))
+        @columns << (res = SimpleColumn.new(@template, @records, attr, col_options))
       else
         raise ArgumentError, "Attribute name or block should be given"
       end

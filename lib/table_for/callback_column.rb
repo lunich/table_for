@@ -1,6 +1,6 @@
 module TableHelper
   class CallbackColumn < Column # :nodoc:
-    def initialize(template, obj, ops)
+    def initialize(template, records, obj, ops)
       super
       @callback = @options.delete(:callback)
     end
