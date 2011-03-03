@@ -102,6 +102,11 @@ Also class given by :stripe option will be merged with options[:html][:tr] so th
   <tr class="row even">...
   <tr class="row odd">...
   
+== I18n
+
+When column name is set, but :title is not, helper tries to find translation in standard mechanism of the ActiveModel.
+For more information visit: http://guides.rubyonrails.org/i18n.html#translations-for-active-record-models
+
 == Known issues
 
 Unfortunately it works incorrect if there is no "-" before %> in this code:

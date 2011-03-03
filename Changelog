@@ -2,6 +2,7 @@
 
 Add option time_format for simple column
 Add shortcut for column width
+Translate column name if possible
 
 == v.1.0.3
 
