@@ -8,14 +8,14 @@ describe TableHelper::Table do
   # users list (stubbed data)
   let(:users) do
     [
-      mock(:id => 1,
-           :name => "John Jackson",
-           :email => "john.jackson@example.com",
-           :address => "100, Spear Street, LA, USA"),
-      mock(:id => 2,
-           :name => "Jack Johnson",
-           :email => "jack.johnson@example.com",
-           :address => "12, Brooklin, NY, USA"),
+      User.new(:id => 1,
+               :name => "John Jackson",
+               :email => "john.jackson@example.com",
+               :address => "100, Spear Street, LA, USA"),
+      User.new(:id => 2,
+               :name => "Jack Johnson",
+               :email => "jack.johnson@example.com",
+               :address => "12, Brooklin, NY, USA"),
     ]
   end
   # table instance

@@ -8,29 +8,29 @@ describe ActionView::Base do
   # users list (stubbed data)
   let(:users) do
     [
-      mock({
+      User.new({
         :id => 1209,
         :name => "John Smith",
         :email => "smith@matrix.net",
-        :address => "100, Spear Street, NY, USA",
+        :address => "100, Spear Street, NY, USA"
       }),
-      mock({
+      User.new({
         :id => 2123,
         :name => "Thomas Anderson",
         :email => "neo@matrix.net",
-        :address => "200, Spear Street, NY, USA",
+        :address => "200, Spear Street, NY, USA"
       }),
-      mock({
+      User.new({
         :id => 3323,
         :name => "Trinity",
         :email => "trinity@matrix.net",
-        :address => "300, Spear Street, NY, USA",
+        :address => "300, Spear Street, NY, USA"
       }),
-      mock({
+      User.new({
         :id => 4912,
         :name => "Morpheus",
         :email => "morpheus@matrix.net",
-        :address => "400, Spear Street, NY, USA",
+        :address => "400, Spear Street, NY, USA"
       })
     ]
   end

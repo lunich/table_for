@@ -6,7 +6,7 @@ module TableHelper
     end
 
     def content_for(record)
-      @attr ? @callback.call(record.send(@attr).to_s) : @callback.call(record)
+      @attr ? @callback.call(record.send(@attr)) : @callback.call(record)
     end
   end
 end
