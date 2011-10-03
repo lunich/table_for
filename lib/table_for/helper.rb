@@ -30,7 +30,7 @@ module TableHelper
   def table_for(records, *args, &proc)
     raise ArgumentError, "Missing block" unless block_given?
     options = args.extract_options!
-    raise ArgumentError, "Records should be array" unless records.is_a? Enumerable
+    raise ArgumentError, "Records should have #map method" unless records.respond_to?(:map)
     t = Table.new(self, records, options)
     t.instance_eval(&proc)
     t.draw
