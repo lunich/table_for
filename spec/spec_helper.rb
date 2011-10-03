@@ -41,6 +41,14 @@ shared_examples_for "Column class instance" do
   end
 end
 
+class User < OpenStruct
+  extend ActiveModel::Naming
+
+  def id
+    @id
+  end
+end
+
 RSpec.configure do |config|
   config.include(Webrat::Matchers)
 end

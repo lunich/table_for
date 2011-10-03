@@ -2,7 +2,7 @@ require "core_ex/array"
 
 module TableHelper
   class Table # :nodoc:
-    delegate :content_tag, :to => :@template
+    delegate :content_tag, :content_tag_for, :to => :@template
     
     def initialize(template, records, options = {})
       @template, @records, @columns = template, records, []
@@ -17,7 +17,7 @@ module TableHelper
 
     def columns(*args)
       res = []
-      unless args.blank?
+      if args.present?
         args.each do |arg|
           res << self.column(arg)
         end
@@ -69,7 +69,7 @@ module TableHelper
     def body
       content_tag :tbody do
         @records.map do |rec|
-          content_tag(:tr, tr_options) do
+          content_tag_for :tr, rec, tr_options do
             @columns.map do |col|
               content_tag :td, col.html[:td] do
                 col.content_for(rec).to_s
@@ -84,11 +84,7 @@ module TableHelper
       res = @tr_html_options.nil? ? {} : @tr_html_options.clone
       html_class = @stripes.next
       unless html_class.nil?
-        if res.has_key?(:class)
-          res[:class] += " " + html_class
-        else
-          res.merge!({ :class => html_class })
-        end
+        res[:class] = [res[:class], html_class].compact.join(" ")
       end
       res
     end
