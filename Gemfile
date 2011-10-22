@@ -3,8 +3,8 @@ source :gemcutter
 gem "actionpack"
 
 group :development, :test do
+  gem "rake"
   gem "rspec", ">=2.0.0"
-  gem "autotest"
   gem "webrat"
 
   gem 'ruby-debug19', :platforms => :ruby_19
