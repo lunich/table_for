@@ -1,3 +1,5 @@
+{<img src="http://travis-ci.org/Ptico/table_for" />}[http://travis-ci.org/Ptico/table_for]
+
 == Description
 
 table_for_collection is a simple gem used to render tables based on the given collection.
