@@ -41,7 +41,8 @@ This ruby code will produce following HTML:
     :id => "users",
     :width => "100%",
     :tr => {
-      :class => "simple-row"
+      :class => "simple-row",
+      :id => lambda { |user| "user-row-#{user.id}" }
     }
   } do -%>
     <% column :name, :html => { :th => { :width => "25%" }, :td => { :class => "user-name" }} %>
@@ -50,7 +51,9 @@ This ruby code will produce following HTML:
   <% end %>
   
 You can put :html hash to the options list (inside the :column method too). In this case
-table will be created with given html attributes. For column width you can use shortcut :width, remember that :width shortcut has higher priority.
+table will be created with given html attributes. To assign :tr options use :tr key under :html - :class value will be added
+to the classes list, :id can be instance of the Proc class, in this it will be called for each collection element.
+For column width you can use shortcut :width, remember that :width shortcut has higher priority.
 Also :title value in the :column method will be used as column's title. It will produce HTML similar to:
   
   <table class="simple-table" id="users" width="100%">

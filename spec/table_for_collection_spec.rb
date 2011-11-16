@@ -87,7 +87,9 @@ describe ActionView::Base do
           end
           table.should have_selector("tbody/tr") do |tr|
             users.each do |user|
-              tr.should have_selector("td.user-id")
+              tr.should have_selector("td.user-id") do |td|
+                td.should contain(user.id.to_s)
+              end
             end
           end
         end
@@ -225,9 +227,9 @@ describe ActionView::Base do
       end
 
       it "should have valid classes" do
-        @html.should have_selector("tr.s-one", :count => 2)
-        @html.should have_selector("tr.s-two", :count => 1)
-        @html.should have_selector("tr.s-three", :count => 1)
+        @html.should have_selector("tr.s-one#new_user", :count => 2)
+        @html.should have_selector("tr.s-two#new_user", :count => 1)
+        @html.should have_selector("tr.s-three#new_user", :count => 1)
       end
     end
     
@@ -235,15 +237,20 @@ describe ActionView::Base do
     #   <% column :name %>
     # <% end %>
     describe "with tr html" do
-      before(:each) do
-        @html = template.table_for(users, :stripes => ["odd", "even"], :html => { :tr => { :class => "table-row" } }) do
+      subject { template.table_for(users, :stripes => ["odd", "even"], :html => { :tr => { :class => "table-row", :id => lambda { |f| "user_#{f.id}" } } }) do
           column :name
         end
-      end
-
+      }
       it "should have valid classes" do
-        @html.should have_selector("tr.odd.table-row", :count => 2)
-        @html.should have_selector("tr.even.table-row", :count => 2)
+        should have_selector("tr.odd.table-row", :count => 2)
+        should have_selector("tr.even.table-row", :count => 2)
+      end
+      it "should have valid ids" do
+        users.each do |user|
+          should have_selector("tr.table-row#user_#{user.id}") do |tr|
+            tr.should contain(user.name)
+          end
+        end
       end
     end
   end

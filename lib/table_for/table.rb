@@ -69,7 +69,7 @@ module TableHelper
     def body
       content_tag :tbody do
         @records.map do |rec|
-          content_tag_for :tr, rec, tr_options do
+          content_tag :tr, tr_options(rec) do
             @columns.map do |col|
               content_tag :td, col.html[:td] do
                 col.content_for(rec).to_s
@@ -80,12 +80,16 @@ module TableHelper
       end
     end
     
-    def tr_options
+    def tr_options(rec)
       res = @tr_html_options.nil? ? {} : @tr_html_options.clone
       html_class = @stripes.next
       unless html_class.nil?
-        res[:class] = [res[:class], html_class].compact.join(" ")
+        res[:class] = [dom_class(rec), res[:class], html_class].compact.join(" ")
       end
+      if res.has_key?(:id) && res[:id].respond_to?(:call)
+        res[:id] = res[:id].call(rec)
+      end
+      res[:id] ||= dom_id(rec)
       res
     end
 
