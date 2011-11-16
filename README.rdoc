@@ -65,10 +65,13 @@ Also :title value in the :column method will be used as column's title. It will 
       </tr>
     </thead>
     <tbody>
-      <tr class="simple-row">
+      <tr class="simple-row" id="user-row-12">
         <td class="user-name">...</td>
         <td>...</td>
         <td>...</td>
+      </tr>
+      <tr class="simple-row" id="user-row-14">
+        ...
       </tr>
     </tbody>
   </table>
