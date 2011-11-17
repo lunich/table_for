@@ -43,9 +43,8 @@ end
 
 class User < OpenStruct
   extend ActiveModel::Naming
-
   def id
-    @id
+    @table[:id]
   end
 end
 
