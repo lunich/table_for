@@ -10,6 +10,11 @@ describe TableHelper::CallbackColumn do
   # call-proc
   let(:given_proc_without_attr) { lambda { |r| "aaa-#{r.id}" }}
   let(:given_proc_with_attr) { lambda { |r| "aaa-#{r}" }}
+  # user hash
+  let(:user_hash) { { :id => 12 } }
+  # call-proc
+  let(:given_proc_without_attr_for_hash) { lambda { |r| "aaa-#{r[:id]}" }}
+  let(:given_proc_with_attr_for_hash) { lambda { |r| "aaa-#{r}" }}
   # Instance methods
   describe "an instance" do
     it_should_behave_like "Column class instance"
@@ -28,15 +33,26 @@ describe TableHelper::CallbackColumn do
         col.title.should eq("Id")
       end
     end
-
     # :content_for
-    it ":content_for method should success without given attribute" do
-      col = build_column(klass, nil, :callback => given_proc_without_attr)
-      col.content_for(user).should == given_proc_without_attr.call(user)
+    context "user object" do
+      it ":content_for method should success without given attribute" do
+        col = build_column(klass, nil, :callback => given_proc_without_attr)
+        col.content_for(user).should == "aaa-12"
+      end
+      it ":content_for method should success with given attribute" do
+        col = build_column(klass, :id, :callback => given_proc_with_attr)
+        col.content_for(user).should == "aaa-12"
+      end
     end
-    it ":content_for method should success with given attribute" do
-      col = build_column(klass, :id, :callback => given_proc_with_attr)
-      col.content_for(user).should == given_proc_with_attr.call(user.id)
+    context "user hash" do
+      it ":content_for method should success without given attribute" do
+        col = build_column(klass, nil, :callback => given_proc_without_attr_for_hash)
+        col.content_for(user_hash).should == "aaa-12"
+      end
+      it ":content_for method should success with given attribute" do
+        col = build_column(klass, :id, :callback => given_proc_with_attr_for_hash)
+        col.content_for(user_hash).should == "aaa-12"
+      end
     end
   end
 end

@@ -2,7 +2,7 @@ require "core_ex/array"
 
 module TableHelper
   class Table # :nodoc:
-    delegate :content_tag, :content_tag_for, :to => :@template
+    delegate :content_tag, :content_tag_for, :dom_id, :dom_class, :to => :@template
     
     def initialize(template, records, options = {})
       @template, @records, @columns = template, records, []
@@ -84,12 +84,14 @@ module TableHelper
       res = @tr_html_options.nil? ? {} : @tr_html_options.clone
       html_class = @stripes.next
       unless html_class.nil?
-        res[:class] = [dom_class(rec), res[:class], html_class].compact.join(" ")
+        klasses = [res[:class], html_class]
+        klasses << dom_class(rec) if rec.respond_to?(:model_name)
+        res[:class] = klasses.compact.join(" ")
       end
       if res.has_key?(:id) && res[:id].respond_to?(:call)
         res[:id] = res[:id].call(rec)
       end
-      res[:id] ||= dom_id(rec)
+      res[:id] ||= dom_id(rec) if rec.respond_to?(:to_key)
       res
     end
 
