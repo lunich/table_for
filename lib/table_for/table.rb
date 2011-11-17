@@ -2,7 +2,7 @@ require "core_ex/array"
 
 module TableHelper
   class Table # :nodoc:
-    delegate :content_tag, :content_tag_for, :dom_id, :dom_class, :to => :@template
+    delegate :content_tag, :dom_id, :dom_class, :to => :@template
     
     def initialize(template, records, options = {})
       @template, @records, @columns = template, records, []
