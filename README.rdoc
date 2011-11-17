@@ -1,4 +1,4 @@
-{<img src="https://secure.travis-ci.org/lunich/table_for.png" />}[http://travis-ci.org/Ptico/table_for]
+{<img src="https://secure.travis-ci.org/lunich/table_for.png" />}[http://travis-ci.org/lunich/table_for]
 
 == Description
 
