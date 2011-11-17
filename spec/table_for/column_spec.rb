@@ -16,12 +16,16 @@ describe TableHelper::Column do
     it ":width method should success" do
       build_column(klass, :id, :width => '20%').draw_title.should eq('<th width="20%">Id</th>')
     end
+    
+    it "should success with :title_callback option" do
+      build_column(klass, :id, :title_callback => lambda { |t| template.link_to(t, "#") }).draw_title.should eq(%{<th><a href="#">Id</a></th>})
+    end
 
     # :content_for
     it ":content_for method should raise error" do
-      lambda do
+      expect {
         build_column(klass, :id, :title => "Test").content_for
-      end.should raise_error(NoMethodError, "Use SimpleColumn or CallbackColumn")
+      }.to raise_error(NoMethodError, "Use SimpleColumn or CallbackColumn")
     end
   end
 end

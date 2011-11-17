@@ -7,7 +7,7 @@ require 'table_for/version'
 spec = Gem::Specification.new do |s|
   s.authors           = ["Dima Lunich", "Andrey Savchenko", "Dmitry Shaposhnik"]
   s.email             = ["dima.lunich@gmail.com", "andrey@aejis.eu", "dmitry@shaposhnik.name"]
-  s.date              = "2011-11-16"
+  s.date              = "2011-11-17"
   s.homepage          = "http://github.com/lunich/table_for"
   s.rubyforge_project = ""
   s.name              = TableHelper::GEM_NAME

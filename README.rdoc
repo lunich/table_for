@@ -48,13 +48,16 @@ This ruby code will produce following HTML:
     <% column :name, :html => { :th => { :width => "25%" }, :td => { :class => "user-name" }} %>
     <% column :email, :width => "20%" %>
     <% column :address, :title => "Home" %>
+    <% column :created_at, :title_callback => lambda { |title| link_to(title, users_path(params.merge(:order => "desc"))) } %>
   <% end %>
   
 You can put :html hash to the options list (inside the :column method too). In this case
 table will be created with given html attributes. To assign :tr options use :tr key under :html - :class value will be added
 to the classes list, :id can be instance of the Proc class, in this it will be called for each collection element.
 For column width you can use shortcut :width, remember that :width shortcut has higher priority.
-Also :title value in the :column method will be used as column's title. It will produce HTML similar to:
+Also :title value in the :column method will be used as column's title. You can pass Proc object to the :title_callback param.
+In this case given proc will be called with title value.
+It will produce HTML similar to:
   
   <table class="simple-table" id="users" width="100%">
     <thead>
@@ -62,11 +65,13 @@ Also :title value in the :column method will be used as column's title. It will 
         <th width="25%">Name</th>
         <th width="20%">Email</th>
         <th>Home</th>
+        <th><a href="/users?order=desc">Created At</a></th>
       </tr>
     </thead>
     <tbody>
       <tr class="simple-row" id="user-row-12">
         <td class="user-name">...</td>
+        <td>...</td>
         <td>...</td>
         <td>...</td>
       </tr>

@@ -17,9 +17,11 @@ module TableHelper
       else
         @attr.to_s.capitalize
       end
+      
+      @title_callback = @options.delete(:title_callback)
 
       @html  = @options.delete(:html)  || {}
-      @html.merge!({:th => { :width => @options.delete(:width) }}) if @options[:width]
+      @html.merge!({:th => { :width => @options.delete(:width) }}) if @options.has_key?(:width)
     end
 
     def content_for
@@ -28,7 +30,7 @@ module TableHelper
 
     def draw_title
       content_tag :th, @html[:th] do
-        @title
+        @title_callback.is_a?(Proc) ? @title_callback.call(@title) : @title
       end
     end
   end

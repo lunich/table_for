@@ -180,6 +180,30 @@ describe ActionView::Base do
       end
     end
     # <%= table_for @users do %>
+    #   <% column :name, :title => "User's name", :title_callback => lambda { |t| link_to(t, "#")} %>
+    # <% end %>
+    describe "with callback-titled column" do
+      before(:each) do
+        @html = template.table_for(users) do
+          column :hits, :title => "user's hits", :title_callback => lambda { |t| link_to(t, "/users/sort/id")}
+        end
+      end
+      it "should render valid HTML" do
+        @html.should have_selector("table") do |table|
+          table.should have_selector("thead/tr/th") do |th|
+            th.should have_selector("a[@href='/users/sort/id']", :content => "user's hits")
+          end
+          table.should have_selector("tbody/tr") do |tr|
+            users.each do |user|
+              tr.should have_selector("td") do |td|
+                td.should contain(user[:hits].to_s)
+              end
+            end
+          end
+        end
+      end
+    end
+    # <%= table_for @users do %>
     #   <% column :name %>
     # <% end %>
     describe "with simple column" do
@@ -402,6 +426,30 @@ describe ActionView::Base do
         @html.should have_selector("table") do |table|
           table.should have_selector("thead/tr/th") do |th|
             th.should contain("Email address")
+          end
+          table.should have_selector("tbody/tr") do |tr|
+            users.each do |user|
+              tr.should have_selector("td") do |td|
+                td.should contain(user.email)
+              end
+            end
+          end
+        end
+      end
+    end
+    # <%= table_for @users do %>
+    #   <% column :name, :title => "User's name", :title_callback => lambda { |t| link_to(t, "#")} %>
+    # <% end %>
+    describe "with callback-titled column" do
+      before(:each) do
+        @html = template.table_for(users) do
+          column :email, :title_callback => lambda { |t| link_to(t, "/users/sort/email")}
+        end
+      end
+      it "should render valid HTML" do
+        @html.should have_selector("table") do |table|
+          table.should have_selector("thead/tr/th") do |th|
+            th.should have_selector("a[@href='/users/sort/email']", :content => "Email")
           end
           table.should have_selector("tbody/tr") do |tr|
             users.each do |user|
