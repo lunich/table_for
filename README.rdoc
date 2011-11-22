@@ -127,3 +127,6 @@ Unfortunately it works incorrect if there is no "-" before %> in this code:
   <%= table_for @users do -%>
   
 We hope it will be fixed soon.
+
+Also we need to check if all our samples are correct.
+
