@@ -6,6 +6,10 @@ rvm:
   - rbx-2.0
   - jruby
 
+gemfile:
+  - gemfiles/rails3.gemfile
+  - gemfiles/rails3_1.gemfile
+
 branches:
   only:
     - master
