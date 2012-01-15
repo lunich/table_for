@@ -2,7 +2,7 @@ require "table_for_collection"
 require "webrat"
 
 def build_column(klass, arg, options = {})
-  klass.new(template, mock(:test), arg, options)
+  klass.new(template, [mock(:test)], arg, options)
 end
 
 # Column instance methods
