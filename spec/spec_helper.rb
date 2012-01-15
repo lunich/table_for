@@ -2,7 +2,7 @@ require "table_for_collection"
 require "webrat"
 
 def build_column(klass, arg, options = {})
-  klass.new(template, mock(:test), arg, options)
+  klass.new(template, [mock(:test)], arg, options)
 end
 
 # Column instance methods
@@ -42,6 +42,7 @@ shared_examples_for "Column class instance" do
 end
 
 class User < OpenStruct
+  require "active_model"
   extend ActiveModel::Naming
   def id
     @table[:id]
