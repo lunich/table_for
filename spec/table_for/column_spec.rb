@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'spec_helper'
 
 describe TableHelper::Column do
@@ -26,6 +27,19 @@ describe TableHelper::Column do
       expect {
         build_column(klass, :id, :title => "Test").content_for
       }.to raise_error(NoMethodError, "Use SimpleColumn or CallbackColumn")
+    end
+  end
+
+  describe "localization and humanization" do
+    it "should translate by human attribute name" do
+      @test_record = User.new(:id => 1, :name => 'Chuck')
+      @test_record.class.stub!(:human_attribute_name).with("name").and_return("nombre")
+
+      TableHelper::Column.new(template, [@test_record], :name).title.should eq("nombre")
+    end
+
+    it "should translate by humanize" do
+      build_column(klass, :full_name).title.should eq("Full name") # Active support activated here
     end
   end
 end
