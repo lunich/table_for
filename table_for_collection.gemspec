@@ -2,12 +2,13 @@
 lib = File.expand_path('../lib/', __FILE__)
 $:.unshift lib unless $:.include?(lib)
 
+require 'date'
 require 'table_for/version'
 
 spec = Gem::Specification.new do |s|
   s.authors           = ["Dima Lunich", "Andrey Savchenko", "Dmitry Shaposhnik"]
   s.email             = ["dima.lunich@gmail.com", "andrey@aejis.eu", "dmitry@shaposhnik.name"]
-  s.date              = "2011-11-17"
+  s.date              = Date.today.to_s
   s.homepage          = "http://github.com/lunich/table_for"
   s.rubyforge_project = ""
   s.name              = TableHelper::GEM_NAME
