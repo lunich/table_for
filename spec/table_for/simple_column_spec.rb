@@ -7,7 +7,7 @@ describe TableHelper::SimpleColumn do
   let(:klass) { TableHelper::SimpleColumn }
   # user (stubbed data)
   let(:company) { mock(:id => 2, :name => "Zorg inc.") }
-  let(:user) { mock(:id => 12, :created_at => Time.gm(2011, "feb", 24, 14, 23, 1), :company => company) }
+  let(:user) { mock(:id => 12, :created_at => Time.gm(2011, "feb", 24, 14, 23, 1), :company => company, :role => nil) }
   # user (hash)
   let(:user_hash) { { :id => 12, :created_at => Time.gm(2011, "feb", 24, 14, 23, 1) } }
   # Instance methods
@@ -48,6 +48,18 @@ describe TableHelper::SimpleColumn do
 
       it "should not be called when not acceptable" do
         col = build_column(klass, :id, :attr => :name)
+        col.content_for(user).should eq("12")
+      end
+    end
+
+    describe ":default option" do
+      it "should be success" do
+        col = build_column(klass, :role, :default => "Guest")
+        col.content_for(user).should eq("Guest")
+      end
+
+      it "should not be called if have a result" do
+        col = build_column(klass, :id, :default => 42)
         col.content_for(user).should eq("12")
       end
     end

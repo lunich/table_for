@@ -97,6 +97,7 @@ It will produce HTML similar to:
     <% column :title => "Actions" do |user| %>
       <% [link_to("Show", user), link_to("Delete", user, :method => :delete)].join(" | ") %>
     <% end %>
+    <% column :role, :default => "guest" %>
     <% column :created_at, :time_format => "%Y-%m-%d" %>
   <% end %>
 
