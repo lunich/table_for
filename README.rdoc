@@ -114,7 +114,17 @@ Also class given by :stripe option will be merged with options[:html][:tr] so th
   <tr class="row odd">...
   <tr class="row even">...
   <tr class="row odd">...
-  
+
+== Relations
+
+If you need a column for relation or apply method for simple column you can use :attr option:
+
+  <%= table_for @users do -%>
+    <% column :login %>
+    <% column :company, :attr => :name %>
+    <% column :name, :attr => :underscore %>
+  <% end %>
+
 == I18n
 
 When column name is set, but :title is not, helper tries to find translation in standard mechanism of the ActiveModel.
