@@ -44,6 +44,7 @@ end
 class User < OpenStruct
   require "active_model"
   extend ActiveModel::Naming
+
   def id
     @table[:id]
   end
