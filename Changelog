@@ -2,6 +2,7 @@
 
 Add :attr option
 Add :default option
+Dynamic :class for tr added
 
 == v.1.0.6
 
