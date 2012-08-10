@@ -43,7 +43,7 @@ This ruby code will produce following HTML:
     :id => "users",
     :width => "100%",
     :tr => {
-      :class => "simple-row",
+      :class => lambda { |user| "simple-row #{user.role}" },
       :id => lambda { |user| "user-row-#{user.id}" }
     }
   } do -%>
