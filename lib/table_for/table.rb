@@ -91,6 +91,9 @@ module TableHelper
       if res.has_key?(:id) && res[:id].respond_to?(:call)
         res[:id] = res[:id].call(rec)
       end
+      if res.has_key?(:class) && res[:class].respond_to?(:call)
+        res[:class] = res[:class].call(rec)
+      end
       res[:id] ||= dom_id(rec) if rec.respond_to?(:to_key)
       res
     end
