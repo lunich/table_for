@@ -66,37 +66,46 @@ module TableHelper
       end
     end
 
-    def body
-      content_tag :tbody do
-        @records.map do |rec|
-          content_tag :tr, tr_options(rec) do
-            @columns.map do |col|
-              content_tag :td, col.html[:td] do
-                col.content_for(rec).to_s
-              end
-            end.join.html_safe
-          end
-        end.join.html_safe
-      end
-    end
-    
-    def tr_options(rec)
-      res = @tr_html_options.nil? ? {} : @tr_html_options.clone
-      html_class = @stripes.next
-      unless html_class.nil?
-        klasses = [res[:class], html_class]
-        klasses << dom_class(rec) if rec.respond_to?(:model_name)
-        res[:class] = klasses.compact.join(" ")
-      end
-      if res.has_key?(:id) && res[:id].respond_to?(:call)
-        res[:id] = res[:id].call(rec)
-      end
-      if res.has_key?(:class) && res[:class].respond_to?(:call)
-        res[:class] = res[:class].call(rec)
-      end
-      res[:id] ||= dom_id(rec) if rec.respond_to?(:to_key)
-      res
+    def columns_content(record)
+      @columns.map do |col|
+        content_tag :td, col.html[:td] do
+          col.content_for(record).to_s
+        end
+      end.join.html_safe
     end
 
+    def records_content
+      @records.map do |record|
+        content_tag :tr, tr_options(record) do
+          columns_content(record)
+        end
+      end.join.html_safe
+    end
+
+    def body
+      content_tag :tbody, records_content
+    end
+
+    def tr_classes(record, base_class)
+      klasses = []
+      klasses << dom_class(record) if record.respond_to?(:model_name)
+      klasses << base_class if base_class
+      stripe = @stripes.next
+      klasses << stripe if stripe
+      klasses
+    end
+
+    def tr_options(record)
+      res = @tr_html_options.nil? ? {} : @tr_html_options.clone
+      # check if we have proc in :id or :class
+      [:id, :class].each do |key|
+        res[key] = res[key].call(record) if res.has_key?(key) && res[key].respond_to?(:call)
+      end
+      # update class
+      res[:class] = tr_classes(record, res[:class]).join(" ")
+      # update id
+      res[:id] ||= dom_id(record) if record.respond_to?(:to_key)
+      res
+    end
   end
 end

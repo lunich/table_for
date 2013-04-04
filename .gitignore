@@ -5,3 +5,5 @@ Gemfile.lock
 table_for_collection-*.gem
 doc
 doc/**/*
+.ruby-gemset
+.ruby-version
