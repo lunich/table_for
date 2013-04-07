@@ -1,3 +1,4 @@
+{<img src="https://fury-badge.herokuapp.com/rb/devise.png" />}[http://badge.fury.io/rb/devise]
 {<img src="https://secure.travis-ci.org/lunich/table_for.png" />}[http://travis-ci.org/lunich/table_for]
 {<img src="https://codeclimate.com/github/lunich/table_for.png" />}[https://codeclimate.com/github/lunich/table_for]
 
