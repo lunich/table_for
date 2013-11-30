@@ -7,6 +7,7 @@ require 'table_for/version'
 
 spec = Gem::Specification.new do |s|
   s.authors           = ["Dima Lunich", "Andrey Savchenko", "Dmitry Shaposhnik"]
+  s.licenses          = ['MIT']
   s.email             = ["dima.lunich@gmail.com", "andrey@aejis.eu", "dmitry@shaposhnik.name"]
   s.date              = Date.today.to_s
   s.homepage          = "http://github.com/lunich/table_for"
