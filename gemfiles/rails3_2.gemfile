@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 
-gem "actionpack", "~> 3.0.0"
+gem "actionpack", "~> 3.2.0"
 
 group :development, :test do
   gem "rake"
   gem "rspec", "~> 2.4"
 
-  gem "activemodel", "~> 3.0.0"
+  gem "activemodel", "~> 3.2.0"
 
   gem "webrat"
 end

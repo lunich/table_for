@@ -1,14 +1,13 @@
 rvm:
-  - 1.8.7
-  - 1.9.2
   - 1.9.3
-  - ree
-  - rbx-18mode
+  - 2.0.0
   - jruby
 
 gemfile:
   - gemfiles/rails3.gemfile
   - gemfiles/rails3_1.gemfile
+  - gemfiles/rails3_2.gemfile
+  - gemfiles/rails4.gemfile
 
 branches:
   only:
